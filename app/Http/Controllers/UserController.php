@@ -16,13 +16,24 @@ class UserController extends Controller
 {
     public function register(Request $request){
         // Validate
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $validator = Validator::make($request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            [
+                'name.required'              => 'Поле Имя обязательно к заполнению!',
+                'email.required'             => 'Поле E-mail обязательно к заполнению!',
+                'password.required'          => 'Поле Пароль обязательно к заполнению!',
+                'password.confirmed'         => 'Поле Повторите пароль не совпадает с полем Пароль!',
+                'password.min'               => 'Пароль должен содержать не менее 6 символов!',
+            ]
+        );
 
-
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 200);
+        }
         // Create New User
         $user = new User();
         $user->name = $request->name;
@@ -48,13 +59,21 @@ class UserController extends Controller
 
     public function login(Request $request){
         // Validate
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
+        $validator = Validator::make($request->all(),
+            [
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+            ],
+            [
+                'email.required'            => 'Поле E-mail обязательно к заполнению!',
+                'email.email'               => 'Поле E-mail введено не корректно!',
+                'password.required'         => 'Поле Пароль обязательно к заполнению!',
+                'password.min'              => 'Пароль должен содержать не менее 6 символов!',
+            ]
+        );
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200);
+            return response()->json(['messages' => $validator->errors()], 200);
         }
 
         $credential = $request->only('email','password');
@@ -62,7 +81,7 @@ class UserController extends Controller
         try {
             if (!$token = JWTAuth::attempt($credential)) {
                 // Return error
-                return response()->json(['message' => 'Login failed'], 200);
+                return response()->json(['messages' => ["auth"=>["Неверный логин или пароль!"]]], 200);
             }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 

@@ -7,9 +7,9 @@
 
                     <div class="panel-body">
 
-                        <div v-if="errorMessages" class="alert alert-danger" role="alert">
-                            Login failed
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <div v-if="errorMessages" class="alert alert-danger d-flex">
+                            <span v-for="message in errorMessages">{{message[0]}}<br></span>
+                            <button type="button" class="close" aria-label="Close" @click.prevent="errorClose()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -20,9 +20,6 @@
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" v-model="login.email" required autofocus>
-                                    <span v-if="errorMessages.email" class="help-block">
-                                        <strong>{{ errorMessages.email[0] }}</strong>
-                                    </span>
                                 </div>
                             </div>
 
@@ -31,9 +28,6 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" v-model="login.password" required>
-                                    <span v-if="errorMessages.password" class="help-block">
-                                        <strong>{{ errorMessages.password[0] }}</strong>
-                                    </span>
                                 </div>
                             </div>
 
@@ -85,7 +79,7 @@
                     .then(response=>{
                         var token = response.data.token;
                         if(!token){
-                            this.errorMessages = response.data.message;
+                            this.errorMessages = response.data.messages;
                         } else {
                             localStorage.setItem('token',token)
                             this.checkUser()
@@ -105,11 +99,28 @@
             },
             goHome(){
                 this.$nextTick(() => this.$router.push({ name: "home" }));
+            },
+            errorClose(){
+                this.errorMessages = ''
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .d-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .alert.alert-danger {
+        position: relative;
+    }
+    .alert span {
+        width: 95%;
+    }
+    button.close {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
 </style>

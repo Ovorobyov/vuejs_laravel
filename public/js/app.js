@@ -47921,7 +47921,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.d-flex[data-v-33212926] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.alert.alert-danger[data-v-33212926] {\n    position: relative;\n}\n.alert span[data-v-33212926] {\n    width: 95%;\n}\nbutton.close[data-v-33212926] {\n    position: absolute;\n    right: 10px;\n    top: 5px;\n}\n", ""]);
 
 // exports
 
@@ -48023,12 +48023,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "Login",
@@ -48054,7 +48048,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/login', this.login).then(function (response) {
                 var token = response.data.token;
                 if (!token) {
-                    _this.errorMessages = response.data.message;
+                    _this.errorMessages = response.data.messages;
                 } else {
                     localStorage.setItem('token', token);
                     _this.checkUser();
@@ -48079,6 +48073,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$nextTick(function () {
                 return _this3.$router.push({ name: "home" });
             });
+        },
+        errorClose: function errorClose() {
+            this.errorMessages = '';
         }
     }
 });
@@ -48101,16 +48098,32 @@ var render = function() {
             _vm.errorMessages
               ? _c(
                   "div",
-                  {
-                    staticClass: "alert alert-danger",
-                    attrs: { role: "alert" }
-                  },
+                  { staticClass: "alert alert-danger d-flex" },
                   [
-                    _vm._v(
-                      "\n                        Login failed\n                        "
-                    ),
-                    _vm._m(0)
-                  ]
+                    _vm._l(_vm.errorMessages, function(message) {
+                      return _c("span", [_vm._v(_vm._s(message[0])), _c("br")])
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: { type: "button", "aria-label": "Close" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.errorClose()
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ],
+                  2
                 )
               : _vm._e(),
             _vm._v(" "),
@@ -48162,15 +48175,7 @@ var render = function() {
                           _vm.$set(_vm.login, "email", $event.target.value)
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errorMessages.email
-                      ? _c("span", { staticClass: "help-block" }, [
-                          _c("strong", [
-                            _vm._v(_vm._s(_vm.errorMessages.email[0]))
-                          ])
-                        ])
-                      : _vm._e()
+                    })
                   ])
                 ]),
                 _vm._v(" "),
@@ -48205,21 +48210,13 @@ var render = function() {
                           _vm.$set(_vm.login, "password", $event.target.value)
                         }
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errorMessages.password
-                      ? _c("span", { staticClass: "help-block" }, [
-                          _c("strong", [
-                            _vm._v(_vm._s(_vm.errorMessages.password[0]))
-                          ])
-                        ])
-                      : _vm._e()
+                    })
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(1)
               ]
             )
           ])
@@ -48229,23 +48226,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -48375,7 +48355,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.d-flex[data-v-8376d414] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.alert.alert-danger[data-v-8376d414] {\n    position: relative;\n}\n.alert span[data-v-8376d414] {\n    width: 95%;\n}\nbutton.close[data-v-8376d414] {\n    position: absolute;\n    right: 10px;\n    top: 5px;\n}\n", ""]);
 
 // exports
 
@@ -48443,6 +48423,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "Register",
@@ -48453,7 +48439,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: "",
                 password: "",
                 password_confirmation: ""
-            }
+            },
+            errorMessages: ''
         };
     },
     mounted: function mounted() {
@@ -48467,11 +48454,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/register', this.register).then(function (response) {
                 var token = response.data.token;
                 if (!token) {
-                    _this.errorMessages = response.data.message;
+                    _this.errorMessages = response.data.errors;
                 } else {
                     localStorage.setItem('token', token);
                     _this.checkUser();
                 }
+            }).catch(function (error) {
+                return console.log(error);
             });
         },
         checkUser: function checkUser() {
@@ -48492,6 +48481,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$nextTick(function () {
                 return _this3.$router.push({ name: "home" });
             });
+        },
+        errorClose: function errorClose() {
+            this.errorMessages = '';
         }
     }
 });
@@ -48511,6 +48503,38 @@ var render = function() {
           _c("div", { staticClass: "panel-heading" }, [_vm._v("Register")]),
           _vm._v(" "),
           _c("div", { staticClass: "panel-body" }, [
+            _vm.errorMessages
+              ? _c(
+                  "div",
+                  { staticClass: "alert alert-danger d-flex" },
+                  [
+                    _vm._l(_vm.errorMessages, function(message) {
+                      return _c("span", [_vm._v(_vm._s(message[0])), _c("br")])
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: { type: "button", "aria-label": "Close" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.errorClose()
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "form",
               {

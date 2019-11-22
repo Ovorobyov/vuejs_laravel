@@ -6,6 +6,12 @@
                     <div class="panel-heading">Register</div>
 
                     <div class="panel-body">
+                        <div v-if="errorMessages" class="alert alert-danger d-flex">
+                            <span v-for="message in errorMessages">{{message[0]}}<br></span>
+                            <button type="button" class="close" aria-label="Close" @click.prevent="errorClose()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <form class="form-horizontal" @submit.prevent="registerUser">
 
                             <div class="form-group">
@@ -65,7 +71,8 @@
                     email: "",
                     password: "",
                     password_confirmation: ""
-                }
+                },
+                errorMessages:''
             }
         },
         mounted() {
@@ -77,12 +84,13 @@
                     .then(response=>{
                         var token = response.data.token;
                         if(!token){
-                            this.errorMessages = response.data.message;
+                            this.errorMessages = response.data.errors;
                         } else {
                             localStorage.setItem('token',token)
                             this.checkUser()
                         }
                     })
+                    .catch(error => console.log(error));
             },
             checkUser(){
                 var token = localStorage.getItem('token');
@@ -97,11 +105,28 @@
             },
             goHome(){
                 this.$nextTick(() => this.$router.push({ name: "home" }));
+            },
+            errorClose(){
+                this.errorMessages = ''
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .d-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .alert.alert-danger {
+        position: relative;
+    }
+    .alert span {
+        width: 95%;
+    }
+    button.close {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
 </style>
