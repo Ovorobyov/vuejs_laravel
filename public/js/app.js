@@ -49122,7 +49122,7 @@ var render = function() {
           { staticClass: "alert alert-danger" },
           [
             _vm._l(_vm.errorMessages, function(message) {
-              return _c("span", [_vm._v(_vm._s(message))])
+              return _c("span", [_vm._v(_vm._s(message[0]))])
             }),
             _vm._v(" "),
             _c(
@@ -49789,21 +49789,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             oData.append('parent_id', this.replayingTo.id ? this.replayingTo.id : '');
             axios.post('/api/comment/send', oData).then(function (response) {
-                // if (response.data.message){
-                //     this.errorMessages = response.data.message;
-                // } else {
-                _this.form.textarea.value = '';
-                form.reset();
-
-                if (!_this.replayingTo.id) {
-                    _this.comments.push(response.data);
+                if (response.data.messages) {
+                    _this.errorMessages = response.data.messages;
                 } else {
-                    _this.fetchComments();
+                    _this.errorMessages = '';
+                    _this.form.textarea.value = '';
+                    form.reset();
+
+                    if (!_this.replayingTo.id) {
+                        _this.comments.push(response.data);
+                    } else {
+                        _this.fetchComments();
+                    }
+
+                    _this.replayingTo = {};
                 }
-
-                _this.replayingTo = {};
-                // }
-
             });
         },
         fetchComments: function fetchComments() {

@@ -21,7 +21,7 @@ class CommentsController extends Controller
 
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 200);
+            return response()->json(['messages' => $validator->errors()], 200);
         }
 
         if ($file = $request->file('file')){

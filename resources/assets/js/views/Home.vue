@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div v-if="errorMessages" class="alert alert-danger">
-            <span v-for="message in errorMessages">{{message}}</span>
+            <span v-for="message in errorMessages">{{message[0]}}</span>
             <button type="button" class="close" aria-label="Close" @click.prevent="errorClose()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -150,9 +150,10 @@
                 oData.append('parent_id',(this.replayingTo.id)?this.replayingTo.id:'');
                 axios.post('/api/comment/send', oData)
                     .then(response=>{
-                        // if (response.data.message){
-                        //     this.errorMessages = response.data.message;
-                        // } else {
+                        if (response.data.messages){
+                            this.errorMessages = response.data.messages;
+                        } else {
+                            this.errorMessages = ''
                             this.form.textarea.value = ''
                             form.reset()
 
@@ -163,7 +164,7 @@
                             }
 
                             this.replayingTo = {}
-                        // }
+                        }
 
 
                     })
