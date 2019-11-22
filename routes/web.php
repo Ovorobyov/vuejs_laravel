@@ -10,15 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Auth::routes();
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth
+Route::post('register', 'UserController@register');
+Route::post('login', 'UserController@login');
+Route::post('check', 'UserController@check');
+Route::post('logout', 'UserController@logout');

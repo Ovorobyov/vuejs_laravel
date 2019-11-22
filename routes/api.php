@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('jwt.auth')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::group(['middleware' => ['jwt.auth']], function () {
+    Route::post('/comment/send', 'CommentsController@send')->name('api.comments.send');
+    Route::post('/logout', function (){
+       return auth()->logout();
+    });
 });
+
+Route::get("/comments", 'CommentsController@all')->name('api.comments');
+Route::get("/comments/{comment}/get", 'CommentsController@get')->name('api.comments.get');
+
